@@ -1,0 +1,19 @@
+<div id="unlocated">
+  <p>These photos haven't been geolocated yet, can you help? <span class="unavailable">Click here to locate photos</span> (Coming soon!)</p>
+  <ul class="photo_list">
+    <% @unlocated.each do |p| %>
+    <li>
+      <a href="javascript:void(0)" title="Taken <%=time_ago_in_words(p.taken_at)%> ago">
+        <img src="<%=p.url('small')%>" alt="Taken <%=time_ago_in_words(p.taken_at)%> ago" />
+      </a>
+    </li>
+    <% end %>
+  </ul>
+</div>
+<div id="map">
+  <p class="links">
+    <a id="permalink" href="#">Permalink</a>
+    -
+    <a id="kmllink" href="#">KML</a>
+  </p>
+</div>

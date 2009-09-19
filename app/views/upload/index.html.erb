@@ -1,0 +1,9 @@
+<div class="content">
+  <p>Upload a file using the form or you may like to <%=link_to "upload using FTP", :action => 'ftp'%>.</p>
+  <p>Once you have finished <%= link_to "head over to your homepage", :controller => 'homepage' %> to see the photos you have uploaded.</p>
+  <% form_tag( { :controller => 'upload', :action => 'index' }, :method => 'post', :multipart => true) do %>
+      <%=file_field_tag 'file' %>
+      <%= submit_tag "Upload" %>
+  <% end %>
+</div>
+<%= render :file => 'content/legals' %>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://earth.google.com/kml/2.2">
+  <Document>
+    <%
+      if @result
+        @result.each_index do |i|
+          p = @result[i]
+        %>
+    <Placemark id="Photo<%=i%>">
+      <description>
+        <![CDATA[<a href="<%=p.url('large')%>"><img src="<%=p.url('medium')%>" alt="" /></a>]]>
+      </description>
+      <name>Taken <%=time_ago_in_words(p.taken_at)%> ago</name>
+      <Icon>
+        <href><%=p.url('square')%></href>
+      </Icon>
+      <Point>
+        <coordinates><%=p.lon%>,<%=p.lat%></coordinates>
+      </Point>
+    </Placemark>
+    <%  end
+      end %>
+  </Document>
+</kml>

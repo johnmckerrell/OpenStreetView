@@ -1,0 +1,16 @@
+<% if params[:status] == 'unavailable' %>
+    <% form_tag do %>
+        <%= hidden_field_tag 'status', params[:status] %>
+        <% params[:photos].each do |p| %>
+            <%= hidden_field_tag "photos[]", p %>
+        <% end %>
+        <p>
+            Do you want to moderate these photos yourself?
+        </p>
+        <p>
+            <%= submit_tag "Yes", :name => 'owner_moderate' %>
+
+            <%= submit_tag "No", :name => 'owner_moderate' %>
+        </p>
+    <% end %>
+<% end %>

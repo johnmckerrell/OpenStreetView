@@ -1,0 +1,53 @@
+<table id="statuses">
+<% PHOTO_STATES.each do |ps| %>
+    <tr>
+        <td>
+              <%=ps%>
+        </td>
+        <td>
+            <%=@counts_hash[ps]%>
+        </td>
+    </tr>
+<% end %>
+</table>
+
+<% @show_statuses.each do |ps| %>
+<%  if @counts_hash[ps] > 0 %>
+<div class="status <%=ps%>">
+    <% form_tag :action => 'modify_files' do %>
+        <%= hidden_field_tag 'status', ps %>
+        <% if ps == 'unavailable' %>
+        <p>You have <%=pluralize(@counts_hash[ps], 'photo')%> that are processed and waiting for you to push them through to moderation.</p>
+        <% elsif ps == 'moderation' %>
+        <p>You have <%=pluralize(@counts_hash[ps], 'photo')%> that are waiting to be fully moderated, <%= link_to "go to moderation", :controller => 'moderate' %>.</p>
+        <% elsif ps == 'available' %>
+        <p>You have <%=pluralize(@counts_hash[ps], 'photo')%> that are available to the public.</p>
+        <% else %>
+        <p>You have <%=pluralize(@counts_hash[ps], 'photo')%> in status: <code><%=ps%></code></p>
+        <% end %>
+        <ul class="photo_list">
+            <% @photos[ps].each do |p| %>
+            <li>
+                <%
+                  if p.taken_at
+                    title = "Taken #{time_ago_in_words(p.taken_at)} ago"
+                  else
+                    title = "Uploaded #{time_ago_in_words(p.created_at)} ago"
+                  end
+                %>
+                <a href="javascript:void(0)" title="<%=title%>">
+                    <img src="<%= p.url('small') %>" />
+                </a>
+                <% if ps == 'unavailable' %>
+                    <%= check_box_tag 'photos[]', p.filename, true %>
+                <% end %>
+            </li>
+            <% end %>
+        </ul>
+        <% if ps == 'unavailable' %>
+            <%= submit_tag "Push to moderation" %>
+        <% end %>
+    <% end %>
+</div>
+<%  end %>
+<% end %>

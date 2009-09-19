@@ -1,0 +1,88 @@
+<% form_tag nil, :id => 'token_form' do end%>
+<div id="moderation_area">
+    <div class="nophotosmessge">
+      <p>
+        You have no photos available for moderation.
+        <a href="javascript:void(0)">
+          Click here to request some.
+        </a>
+      </p>
+    </div>
+    <div class="tagging_area">
+      <div class="photo_holder">
+        <img class="photo" />
+      </div>
+      <table class="tags">
+        <thead>
+          <tr>
+            <th>
+              Key
+            </th>
+            <th>
+              Value
+            </th>
+            <th>
+              Area
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+      <form action="javascript:void(0)">
+        <p>Enter values for a new tag and optionally select an area:</p>
+        <label class="tag_key">
+          Key:
+          <input>
+        </label>
+        <label class="tag_value">
+          Values:
+          <input>
+        </label>
+        <label class="tag_area">
+          Area: <a href="javascript:void(0)">Clear</a>
+          <input disabled="disabled">
+        </label>
+        <p class="tag_save">
+          <button type="submit">Save Tag</button>
+        </p>
+      </form>
+      <p class="close">
+        <a href="javascript:void(0)">Close Tagging Area</a>
+      </p>
+      <div class="clear"></div>
+    </div>
+    <ul class="photo_list">
+    </ul>
+    <ul id="moderation_controls">
+        <li>
+            Select:
+            <a class="selectall" href="javascript:void(0)">All</a>
+            |
+            <a class="selectnone" href="javascript:void(0)">None</a>
+        </li>
+        <li>
+            Mark as:
+            <a class="markassafe" href="javascript:void(0)">Safe</a>
+            |
+            <a class="markasunsafe" href="javascript:void(0)">Un-safe</a>
+        </li>
+        <li>
+            <a class="masksections" href="javascript:void(0)">
+                Mask sections
+            </a>
+        </li>
+        <li>
+            <a class="savechanges" href="javascript:void(0)">
+              Save Changes
+            </a>
+        </li>
+    </ul>
+    <div class="clear"></div>
+</div>
+<script type="text/javascript">
+  $(function() {
+    var moderator = new OSVModerator(document.getElementById('moderation_area'));
+    moderator.requestImages();
+  });
+</script>

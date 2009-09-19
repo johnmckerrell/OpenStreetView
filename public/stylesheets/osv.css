@@ -1,0 +1,296 @@
+.clear {
+    clear: both;
+}
+
+.unavailable {
+    text-decoration: line-through;
+}
+
+/**
+ * General site layout styles.
+ */
+
+body {
+    font-family: Helvetica, Arial, sans-serif;
+    padding: 5px;
+}
+
+.dynamic #message {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+}
+
+#message h3 {
+    padding: 5px;
+}
+
+#message h3.flash_notice {
+    border: 2px solid #0F0;
+    background: #CFC;
+}
+
+#message h3.flash_error {
+    border: 2px solid #F00;
+    background: #FCC;
+}
+
+#message a {
+    display: none;
+}
+
+.dynamic #message a {
+    position: absolute;
+    right: 7px;
+    top: 7px;
+    display: block;
+}
+
+h1 {
+    margin: 5px;
+    float: left;
+}
+
+h1 a {
+    font-size: 300%;
+    font-family: Garamond, serif;
+    text-decoration: none;
+    color: #00D;
+}
+
+h2 {
+    font-size: 150%;
+    margin-bottom: .5em;
+}
+
+#user_panel {
+    float: right;
+    line-height: 300%;
+    margin: 10px;
+}
+
+.content {
+}
+
+.content p {
+    margin-bottom: .5em;
+}
+
+#footer {
+    text-align: center;
+    clear: both;
+}
+
+.dynamic #footer {
+    position: absolute;
+    font-size: smaller;
+    bottom: 10px;
+    left: 0;
+    width: 100%;
+}
+
+/**
+ * Main homepage styles.
+ */
+
+.dynamic #unlocated .photo_list li {
+    float: none;
+}
+
+.dynamic #unlocated {
+    position: absolute;
+    top: 70px;
+    bottom: 0px;
+    left: 5px;
+    width: 260px;
+    bottom: 5px;
+    overflow: hidden;
+}
+
+.dynamic #unlocated .photo_list {
+    padding: 0;
+}
+
+.dynamic #unlocated p {
+    padding: 10px;
+}
+
+.dynamic #map {
+    position: absolute;
+    left: 270px;
+    right: 5px;
+    top: 70px;
+    bottom: 5px;
+}
+
+.dynamic .olControlAttribution {
+    left: 5px;
+    bottom: 5px;
+}
+
+.dynamic #map .links {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    font-size: smaller;
+    z-index: 1006;
+}
+
+/**
+ * Licenses page styles
+ */
+
+ul.licenses {
+    margin: 10px;
+}
+
+ul.licenses li {
+    margin-bottom: 20px;
+}
+
+ul.licenses h3 {
+    font-size: 200%;
+}
+
+/**
+ * Upload styles
+ */
+
+.ftpupload li {
+    margin-left: 20px;
+}
+
+.ftpupload, .ftpupload ul {
+    margin-bottom: 10px;
+}
+
+/**
+ * User homepage styles
+ */
+
+#user-homepage .status {
+    clear: both;
+}
+
+#user-homepage #statuses {
+    float: right;
+}
+
+/**
+ * Other styles
+ */
+
+.nophotosmessge {
+    display: none;
+}
+
+.tagging_area {
+    display: none;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    background: white;
+    padding: 5px;
+    border: 1px solid black;
+    z-index: 10;
+}
+
+.photo_holder {
+    position: relative;
+    width: 1024px;
+}
+
+.photo_holder .photo {
+    margin: 0 auto;
+}
+
+.tagging_area .even {
+    background: #DDD;
+}
+
+.tagging_area .deleted td {
+    text-decoration: line-through;
+}
+
+.tagging_area .photo_holder .ui-boxer-helper {
+    outline: 1px dashed white;
+}
+
+.tagging_area .photo_holder .tag_area {
+    position: absolute;
+    border: 1px dashed white;
+}
+
+.tagging_area .photo_holder .mask {
+    background: black;
+}
+
+
+.tagging_area table {
+    width: 50%;
+    float: left;
+}
+
+.tagging_area form {
+    width: 50%;
+    float: left;
+}
+
+.tagging_area form label {
+    display: block;
+    clear: both;
+    padding: 5px;
+}
+
+.tagging_area form label input {
+    float: right;
+}
+
+.tagging_area form button {
+    clear: both;
+    float: right;
+}
+
+.tagging_area .close {
+    clear: both;
+    text-align: center;
+}
+
+ul.photo_list {
+    display: block;
+    padding: 10px;
+}
+
+ul.photo_list li {
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid transparent;
+    display: block;
+    float: left;
+    cursor: pointer;
+}
+
+ul.photo_list li.status-safe {
+    background: #EFE;
+}
+
+ul.photo_list li.status-unsafe {
+    background: #FEE;
+}
+
+ul.selectable li:hover {
+    background: #EEF;
+}
+
+ul.selectable li.selected {
+    border: 2px solid #00F;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+}
+
+ul#moderation_controls {
+    clear: both;
+}
+

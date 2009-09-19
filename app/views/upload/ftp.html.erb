@@ -1,0 +1,54 @@
+<% if @dir_contents.nil? %>
+  <div class="content">
+    <p>You do not have an FTP account set up, click on the button below to create one:</p>
+    <% form_tag( { :controller => 'upload', :action => 'ftp_create' } ) do %>
+        <input type="hidden" name="create" value="yes" />
+        <%= submit_tag "Create FTP Account" %>
+    <% end %>
+  </div>
+<% else %>
+  <div class="content">
+    <p>Find files that you've uploaded in the list below. First level directories will be uploaded as batches.</p>
+    <% form_tag( { :controller => 'upload', :action => 'ftp_process' } ) do %>
+    <ul class="ftpupload">
+    <%
+        @dir_contents.each do |d|
+            %>
+        <li>
+            <%=check_box_tag "process[]", d %>
+            <% if d == @subdir %>
+            <%= link_to h(d)+" (close)" %>
+            <ul>
+                <%
+                @subdir_contents.each do |s|
+                %>
+                <li><%=s%></li>
+                <%
+                end
+                if @subdir_contents.length == 0
+                %>
+                <li><em>Nothing Present</em></li>
+                <%
+                end
+                %>
+            </ul>
+            <% else %>
+            <%= link_to h(d), :subdir => d %>
+            <% end %>
+        </li>
+            <%
+        end
+        if @dir_contents.length == 0
+        %>
+        <li><em>Nothing present</em></li>
+        <%
+        end
+    %>
+    </ul>
+    <% if @dir_contents.length != 0 %>
+        <%= submit_tag "Process Files" %>
+    <% end %>
+    <% end %>
+  </div>
+  <%= render :file => 'content/legals' %>
+<% end %>

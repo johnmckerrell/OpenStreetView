@@ -1,0 +1,94 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+                              "XHTML1-s.dtd" >
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title><%=
+      if @title.nil?
+        "Open Street View"
+      else
+        @title
+      end
+    %></title>
+    <!--
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    var pageTracker = _gat._getTracker("");
+    pageTracker._initData();
+    pageTracker._trackPageview();
+    </script>
+    -->
+    <%= stylesheet_link_tag 'reset' %>
+    <%= stylesheet_link_tag 'osv' %>
+    <% if @javascripts %>
+    <%  @javascripts.each do |js| %>
+    <%= javascript_include_tag js %>
+    <%  end %>
+    <% end %>
+  </head>
+  <body<% if @pageid %> id="<%=@pageid%>"<% end %>>
+    <% if flash.length > 0 %>
+      <div id="message">
+        <% if flash[:notice] %>
+          <h3 class="flash_notice">
+            <%=flash[:notice]%>
+            <a href="javascript:void(0)">Hide</a>
+          </h3>
+        <% end %>
+        <% if flash[:error] %>
+          <h3 class="flash_error">
+            <%=flash[:error]%>
+            <a href="javascript:void(0)">Hide</a>
+          </h3>
+        <% end %>
+     </div>
+    <% end %>
+    <h1><%= link_to "OpenStreetView", :controller => 'main' %></h1>
+    <div id="user_panel">
+    <% if current_user %>
+    Welcome, <%=link_to h(current_user.login), :controller => 'homepage' %>
+    -
+    <%= link_to "upload", :controller => 'upload' %>
+    -
+    <%- count = Photo.moderation_count -%>
+    <%- if count > 0 -%>
+    <%= link_to pluralize(count, 'photo')+" need"+(count > 0 ? 's' : '')+" moderation", :controller => 'moderate' %>
+    -
+    <%- end -%>
+    <%=link_to "logout", :controller => 'sessions', :action => 'destroy' %>
+    <% else %>
+    <%=link_to "log in", :controller => 'sessions', :action => 'new' %>
+    -
+    <%=link_to "sign up", :controller => 'users', :action => 'new' %>
+    <% end %>
+    </div>
+    <div class="clear"></div>
+
+    <%= yield %>
+
+    <div id="footer">
+      openstreetview.org - <%=link_to "Important Legal Information", :controller => 'content', :action => 'legals' %>
+    </div>
+    <script type="text/javascript">
+      if( window.OSV ) {
+        window.OSV.setup();
+      }
+    </script>
+    <% if ENV['RAILS_ENV'] == 'production' %>
+    <script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+    <script type="text/javascript">
+    try {
+    var pageTracker = _gat._getTracker("UA-3137650-7");
+    pageTracker._trackPageview();
+    } catch(err) {}</script>
+    <% end %>
+  </body>
+</html>
