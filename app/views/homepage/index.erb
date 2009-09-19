@@ -13,7 +13,7 @@
 
 <% @show_statuses.each do |ps| %>
 <%  if @counts_hash[ps] > 0 %>
-<div class="status <%=ps%>">
+<div class="status status-<%=ps%>">
     <% form_tag :action => 'modify_files' do %>
         <%= hidden_field_tag 'status', ps %>
         <% if ps == 'unavailable' %>
