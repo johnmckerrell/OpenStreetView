@@ -230,7 +230,7 @@ class Photo < ActiveRecord::Base
     if self.status != 'pending'
       return
     end
-    require "FileUtils"
+    require "fileutils"
     begin
       i = EXIFR::JPEG.new('private/pending/'+filename)
     rescue Exception
@@ -320,7 +320,7 @@ class Photo < ActiveRecord::Base
   end
 
   def delete_file( fn, post, status )
-    require "FileUtils"
+    require "fileutils"
     FileUtils.safe_unlink( sys_filename(status, fn, post) )
   end
 
@@ -332,7 +332,7 @@ class Photo < ActiveRecord::Base
 
 
   def copy_file( fn, post )
-    require "FileUtils"
+    require "fileutils"
     FileUtils.copy( sys_filename('processed', fn, post), sys_filename('available', fn, post) )
   end
 

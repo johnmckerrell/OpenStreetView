@@ -43,13 +43,16 @@ Rails::Initializer.run do |config|
   # config.i18n.default_locale = :de
   config.active_record.observers = :user_observer
   config.gem 'rubyist-aasm', :lib => 'aasm', :source => 'http://gems.github.com'
+  config.gem 'mini_magick'
+  config.gem 'exifr'
+  config.gem 'json'
 end
 
 MIN_APPROVALS=3
 MAX_USER_MODERATORS=10
 
-require 'mini_magick'
-require 'exifr'
+#require 'mini_magick'
+#require 'exifr'
 
 PHOTO_STATES = [ 'pending', 'processing', 'unavailable', 'moderation', 'available' ]
 MODERATION_STATES = [ 'pending', 'safe', 'unsafe' ]

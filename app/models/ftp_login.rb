@@ -16,7 +16,7 @@ class FtpLogin < ActiveRecord::Base
   end
 
   def user_id=(user_id)
-    require 'FileUtils'
+    require 'fileutils'
     super(user_id)
     self.path = 'private/upload/'+user_id.to_s+'/'
     FileUtils.mkdir_p self.path
@@ -61,7 +61,7 @@ class FtpLogin < ActiveRecord::Base
     if files.length == 0
       return 0
     end
-    require "FileUtils"
+    require "fileutils"
     pb = PhotoBatch.new
     pb.user = self.user
     pb.name = batch_name
