@@ -13,12 +13,7 @@ class FtpLogin < ActiveRecord::Base
     if user
       self.user_id = user.id
     end
-  end
-
-  def user_id=(user_id)
-    require 'fileutils'
-    super(user_id)
-    self.path = 'private/upload/'+user_id.to_s+'/'
+    self.path = 'private/upload/'+username+'/'
     FileUtils.mkdir_p self.path
   end
 
