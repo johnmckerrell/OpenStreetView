@@ -227,7 +227,7 @@ class Photo < ActiveRecord::Base
   end
 
   def process
-    if self.status != 'pending'
+    if self.status != 'pending' and self.status != 'processing'
       return
     end
     require "fileutils"
