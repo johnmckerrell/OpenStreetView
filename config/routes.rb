@@ -53,10 +53,10 @@ ActionController::Routing::Routes.draw do |map|
   # consider removing the them or commenting them out if you're using named routes and resources.
   map.connect 'api/photo/:id/:action', :controller => 'api/photo'
   map.connect 'api/photos/:action', :controller => 'api/photos'
+  map.connect '', :controller => 'main', :action => 'index'
   map.connect ':controller/:action.:format'
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
   map.connect 'c/:action', :controller => 'content'
   map.connect ':action', :controller => 'main'
-  map.connect '', :controller => 'main', :action => 'index'
 end
