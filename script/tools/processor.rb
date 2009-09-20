@@ -4,9 +4,9 @@ require File.dirname(__FILE__) + "/../../config/environment"
 while true do
 
   ActiveRecord::Base.connection.execute("LOCK TABLES photos WRITE")
-  p = Photo.find(:first, :conditions => { :state => 'pending' } )
+  p = Photo.find(:first, :conditions => { :status => 'pending' } )
   if p
-    p.state = 'processing'
+    p.status = 'processing'
     p.save
   end
   ActiveRecord::Base.connection.execute("UNLOCK TABLES")
