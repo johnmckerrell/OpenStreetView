@@ -8,6 +8,23 @@
   </div>
 <% else %>
   <div class="content">
+    <p>
+      Your FTP account has been setup, use the following details to connect:
+    </p>
+    <table class="ftpdetails">
+      <tr>
+        <th>Server hostname:</th>
+        <td>ftp.openstreetview.org</td>
+      </tr>
+      <tr>
+        <th>Username:</th>
+        <td><%=@fl.username%></td>
+      </tr>
+      <tr>
+        <th>Password:</th>
+        <td><%=@fl.password%></td>
+      </tr>
+    </table>
     <p>Find files that you've uploaded in the list below. First level directories will be uploaded as batches.</p>
     <% form_tag( { :controller => 'upload', :action => 'ftp_process' } ) do %>
     <ul class="ftpupload">

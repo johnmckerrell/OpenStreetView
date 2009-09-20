@@ -41,9 +41,9 @@ class UploadController < ApplicationController
   end
 
   def ftp
-    fl = FtpLogin.find( :first, :conditions => { :user_id => current_user.id } )
-    if fl
-      @path = fl.path
+    @fl = FtpLogin.find( :first, :conditions => { :user_id => current_user.id } )
+    if @fl
+      @path = @fl.path
       @subdir = nil
       @subdir_contents = nil
       if params[:subdir]
