@@ -17,11 +17,11 @@
     <% form_tag :action => 'modify_files' do %>
         <%= hidden_field_tag 'status', ps %>
         <% if ps == 'unavailable' %>
-        <p>You have <%=pluralize(@counts_hash[ps], 'photo')%> that are processed and waiting for you to push them through to moderation.</p>
+        <p>You have <%=pluralize(@counts_hash[ps], 'photo')%> that <%= @counts_hash[ps]==1 ? 'is' : 'are' %> processed and waiting for you to push them through to moderation.</p>
         <% elsif ps == 'moderation' %>
-        <p>You have <%=pluralize(@counts_hash[ps], 'photo')%> that are waiting to be fully moderated, <%= link_to "go to moderation", :controller => 'moderate' %>.</p>
+        <p>You have <%=pluralize(@counts_hash[ps], 'photo')%> that <%= @counts_hash[ps]==1 ? 'is' : 'are' %> waiting to be fully moderated, <%= link_to "go to moderation", :controller => 'moderate' %>.</p>
         <% elsif ps == 'available' %>
-        <p>You have <%=pluralize(@counts_hash[ps], 'photo')%> that are available to the public.</p>
+        <p>You have <%=pluralize(@counts_hash[ps], 'photo')%> that <%= @counts_hash[ps]==1 ? 'is' : 'are' %> available to the public.</p>
         <% else %>
         <p>You have <%=pluralize(@counts_hash[ps], 'photo')%> in status: <code><%=ps%></code></p>
         <% end %>
