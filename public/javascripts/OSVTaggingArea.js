@@ -28,7 +28,7 @@ OSVTaggingArea.prototype.saveTag = function() {
     var area = this.html.find('form .tag_area input').attr('value');
     var key = this.html.find('form .tag_key input').attr('value');
     var value = this.html.find('form .tag_value input').attr('value');
-    if( key && key != '' ) {
+    if( key && key != '' && value && value != '' ) {
         tag.mask_tag = this.mask_tags;
         tag.key = key;
         if( value && value != '' )

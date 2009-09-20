@@ -22,6 +22,9 @@ before_filter :load_photo
 
   def mask
     if request.post?
+      if @photo.status != 'moderation'
+        raise APIError.new("Photo does not have moderation status",400)
+      end
       moderator = Moderator.find(:first, :conditions => {
           :user_id => current_user.id,
           :photo_id => params[:id] } )
@@ -51,6 +54,9 @@ before_filter :load_photo
 
   def tag
     if request.post?
+      if @photo.status != 'available'
+        raise APIError.new("Only public photos may be tagged",400)
+      end
       tags = Tag.from_json(request.raw_post)
       tags.each do |t|
         if t.id and t.deleted_at
@@ -74,6 +80,9 @@ before_filter :load_photo
 
   def metadata
     if request.post?
+      if @photo.status != 'available'
+        raise APIError.new("Only public photo metadata may be modified",400)
+      end
       json = JSON.parse(request.raw_post)
       md = CompositeMetaData.find(:first, :conditions => {
           :user_id => current_user.id,
@@ -90,6 +99,9 @@ before_filter :load_photo
 
   def moderate
     if request.post?
+      if @photo.status != 'moderation'
+        raise APIError.new("Photo does not have moderation status",400)
+      end
       moderator = Moderator.find(:first, :conditions => {
           :user_id => current_user.id,
           :photo_id => params[:id] } )
