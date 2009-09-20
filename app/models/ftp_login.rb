@@ -15,6 +15,10 @@ class FtpLogin < ActiveRecord::Base
     end
     self.path = 'private/upload/'+username+'/'
     FileUtils.mkdir_p self.path
+    if RAILS_ENV == 'production'
+      FileUtils.chown nil, 'ftpgroup', self.path
+      FileUtils.chmod 775, self.path
+    end
   end
 
   def process( items )
