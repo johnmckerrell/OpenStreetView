@@ -17,7 +17,7 @@ class FtpLogin < ActiveRecord::Base
     FileUtils.mkdir_p self.path
     if RAILS_ENV == 'production'
       FileUtils.chown nil, 'ftpgroup', self.path
-      FileUtils.chmod 775, self.path
+      FileUtils.chmod 0775, self.path
     end
   end
 
