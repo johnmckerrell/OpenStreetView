@@ -13,7 +13,7 @@ while true do
   if p
     p.process
     puts "Sleeping for 5 seconds"
-    sleep 5
+    #sleep 5
   else
     puts "Sleeping for a minute"
     sleep 60
