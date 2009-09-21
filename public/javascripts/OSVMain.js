@@ -17,7 +17,7 @@ var OSVMain = (function() {
     function getLocateLink(format) {
         var extent = OSV.getMapExtent(map);
         var url = OSV.getURLBase()+'/api/photos/locate.'+format+'?bbox=';
-        url += [ extent.bottom, extent.left, extent.top, extent.right ].join(',');
+        url += [ extent.left, extent.bottom, extent.right, extent.top].join(',');
         return url;
     }
     function mapChangeTimeout() {

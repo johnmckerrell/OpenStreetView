@@ -52,6 +52,7 @@ OpenLayers.Layer.OSM.Mapnik = OpenLayers.Class(OpenLayers.Layer.OSM, {
         var newArguments = [name, url, options];
         OpenLayers.Layer.OSM.prototype.initialize.apply(this, newArguments);
     },
+    attribution:"Map data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>",
 
     CLASS_NAME: "OpenLayers.Layer.OSM.Mapnik"
 });
@@ -80,6 +81,7 @@ OpenLayers.Layer.OSM.Osmarender = OpenLayers.Class(OpenLayers.Layer.OSM, {
         var newArguments = [name, url, options];
         OpenLayers.Layer.OSM.prototype.initialize.apply(this, newArguments);
     },
+    attribution:"Map data CC-By-SA by <a href='http://openstreetmap.org/'>OpenStreetMap</a>",
 
     CLASS_NAME: "OpenLayers.Layer.OSM.Osmarender"
 });

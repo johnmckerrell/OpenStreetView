@@ -112,7 +112,7 @@ class Photo < ActiveRecord::Base
     Photo.find( :all,
       :conditions => [
         "lat IS NOT NULL AND lon IS NOT NULL AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND status = 'available'",
-        bits[0], bits[2], bits[1], bits[3] ],
+        bits[1], bits[3], bits[0], bits[2] ],
       :order => 'created_at ASC',
       :limit => 100 )
   end
