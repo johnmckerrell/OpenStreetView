@@ -24,7 +24,6 @@ OSVPhoto.prototype.save = function() {
 };
 
 OSVPhoto.prototype.saveLoop = function(saved,args) {
-    console.log(arguments);
     var data, status;
     if(saved) {
         data = args[0];
@@ -95,7 +94,6 @@ OSVPhoto.prototype.saveLoop = function(saved,args) {
 /*
     // No longer used, all done in saveLoop above
 OSVPhoto.prototype.saveCallback = function(data,status) {
-    console.log('saveCallback',arguments);
     if( status == 'success' && data && ! data.error ) {
         this.change_data = {};
         this.data = data;
@@ -185,7 +183,6 @@ OSVPhoto.prototype.addTag = function(t) {
         t.is_new = true;
         this.change_data.tags.push(t);
     }
-    console.log(this);
 }
 
 OSVPhoto.prototype.removeTag = function(t) {
@@ -211,7 +208,6 @@ OSVPhoto.prototype.removeTag = function(t) {
     if( this.change_data.tags && this.change_data.tags.length == 0 ) {
         this.change_data.tags = null;
     }
-    console.log(this);
 }
 
 OSVPhoto.prototype.destroy = function() {

@@ -47,7 +47,6 @@ OSVTaggingArea.prototype.saveTag = function() {
 
 OSVTaggingArea.prototype.addTagBox = function(area,mask) {
     var bits = area.split(/[ x,]/);
-    console.log('area=',area,'bits=',bits);
     if( bits.length != 4 )
         return;
     var box = $(document.createElement('div'));

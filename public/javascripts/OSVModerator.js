@@ -68,7 +68,6 @@ OSVModerator.prototype.requestMoreImages = function() {
 
 OSVModerator.prototype.requestMoreImagesCallback = function(json) {
     this.ajax_activity = false;
-    console.log( 'requestMoreImagesCallback', json );
     if( json && json instanceof Array ) {
         this.addImages(json);
     }
