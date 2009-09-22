@@ -1,7 +1,7 @@
 function OSVPhoto(data, moderator) {
     this.data = data;
     this.moderator = moderator;
-    this._selected = true;
+    this._selected = false;
     this.change_data = {};
     this.saving = false;
 }
@@ -122,7 +122,16 @@ OSVPhoto.prototype.html = function() {
     var img = document.createElement('img');
     a.appendChild(img);
     img.src = this.url('small');
-    
+
+    var span = document.createElement('span');
+    a.appendChild(span);
+    span.className = 'status';
+    span = $(span);
+    this.status_html = function() {
+        return span;
+    }
+    // The actual status will be added in the status() call later
+
     this.html = function() {
         return html;
     }
@@ -160,6 +169,7 @@ OSVPhoto.prototype.safeness = function(val) {
         if( old ) {
             this.html().removeClass(' status-'+old);
             this.html().addClass(' status-'+this.safeness());
+            this.status_html().text(this.safeness());
         }
     }
     if( this.change_data.status )
