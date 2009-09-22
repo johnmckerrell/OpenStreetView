@@ -55,7 +55,7 @@
     -
     <%= link_to "upload", :controller => 'upload' %>
     -
-    <%- count = Photo.moderation_count -%>
+    <%- count = Photo.moderation_count(@current_user) -%>
     <%- if count > 0 -%>
     <%= link_to pluralize(count, 'photo')+" need"+(count > 0 ? 's' : '')+" moderation", :controller => 'moderate' %>
     -
