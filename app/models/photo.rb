@@ -14,18 +14,20 @@ class Photo < ActiveRecord::Base
     p.approval_needed = MIN_APPROVALS
     p.photo_batch = batch
     p.user = user
-    p.status = 'pending'
+    p.status = 'handling'
     p.license = user.default_license
     # DB won't allow empty filename
     p.filename = 'temp'
     p.save
 
     fn = p.gen_filename
-    p.filename = fn
-    p.save
     
     path = "private/pending/"+fn
     File.open(path, "wb") { |f| f.write(file.read) }
+
+    p.status = 'pending'
+    p.filename = fn
+    p.save
     fn
   end
 
