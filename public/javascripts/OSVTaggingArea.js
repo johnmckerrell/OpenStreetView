@@ -73,7 +73,7 @@ OSVTaggingArea.prototype.drawBoxFinish = function(event,ui) {
     var area = ui.box.css('left')+','+ui.box.css('top')+' ';
     area += ui.box.width()+'x'+ui.box.height();
     area = area.replace(/px/g, '');
-    //ui.box.remove();
+    ui.box.remove();
     this.area_box = this.addTagBox(area,this.mask_tags);
     if( this.mask_tags ) {
         this.html.find('.tag_value input').focus();
