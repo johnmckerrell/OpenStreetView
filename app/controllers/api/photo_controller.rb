@@ -99,9 +99,9 @@ before_filter :load_photo
 
   def moderate
     if request.post?
-      if @photo.status != 'moderation'
-        raise APIError.new("Photo does not have moderation status",400)
-      end
+      #if @photo.status != 'moderation'
+      #  raise APIError.new("Photo does not have moderation status",400)
+      #end
       moderator = Moderator.find(:first, :conditions => {
           :user_id => current_user.id,
           :photo_id => params[:id] } )

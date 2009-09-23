@@ -49,7 +49,7 @@ class Photo < ActiveRecord::Base
     # potentially pushes the image live
     approval_count = self.moderators.count(:conditions => {:status => 'safe'})
     self.approval_count = approval_count
-    if self.approval_count >= self.approval_needed
+    if self.status != 'available' and self.approval_count >= self.approval_needed
       self.update_status( 'available' )
     else
       puts "Should be saving the approval count here: #{self.approval_count}"
