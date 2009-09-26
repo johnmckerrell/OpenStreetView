@@ -120,15 +120,16 @@ class Photo < ActiveRecord::Base
   end
 
   def self.moderation_count( user = nil )
-    if user.nil?
-      Photo.count(
-        :conditions => [ "status = 'moderation'" ] )
-    else 
-      Photo.count(
-        :conditions => [ "photos.status = 'moderation' AND ( ( moderators.user_id = ? AND moderators.status = 'pending' ) OR moderators.user_id IS NULL )", user.id ],
-        :include => [ :moderators ]
+    photos_count = Photo.count(
+      :conditions => [ "status = 'moderation'" ] )
+    if user
+      moderated_count = Moderator.count(
+        :conditions => [ "photos.status = 'moderation' AND moderators.status <> 'pending' AND moderators.user_id = ?", user.id ],
+        :include => [ :photo ]
         )
+      photos_count -= moderated_count
     end
+    photos_count
   end
 
   def self.find_for_status(params,user)
