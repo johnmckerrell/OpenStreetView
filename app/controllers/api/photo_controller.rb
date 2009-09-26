@@ -33,6 +33,18 @@ before_filter :load_photo
       end
       tags = Tag.from_json(request.raw_post)
       tags.each do |t|
+        bits = t.area.split(/[x ,]/)
+        if bits.length != 4
+          raise APIError.new("Incorrect area format")
+        end
+        bits.map! { |b| b = b.to_i }
+        if bits[0] < 0
+          bits[0] = 0
+        end
+        if bits[1] < 0
+          bits[1] = 0
+        end
+        t.area = "#{bits[0]},#{bits[1]} #{bits[2]}x#{bits[3]}"
         if t.id and t.deleted_at
           existing = Tag.find(t.id)
           existing.deleted_at = Time.now
@@ -59,6 +71,18 @@ before_filter :load_photo
       end
       tags = Tag.from_json(request.raw_post)
       tags.each do |t|
+        bits = t.area.split(/[x ,]/)
+        if bits.length != 4
+          raise APIError.new("Incorrect area format")
+        end
+        bits.map! { |b| b = b.to_i }
+        if bits[0] < 0
+          bits[0] = 0
+        end
+        if bits[1] < 0
+          bits[1] = 0
+        end
+        t.area = "#{bits[0]},#{bits[1]} #{bits[2]}x#{bits[3]}"
         if t.id and t.deleted_at
           existing = Tag.find(t.id)
           existing.deleted_at = Time.now

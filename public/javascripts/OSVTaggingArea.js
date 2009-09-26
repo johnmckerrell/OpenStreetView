@@ -42,6 +42,8 @@ OSVTaggingArea.prototype.saveTag = function() {
         this.tags_tbody.append(
             this.createTagHTML(tag,true,
                 this.tags_tbody.get(0).childNodes.length ) );
+    } else {
+        this.hide();
     }
 }
 
@@ -70,7 +72,13 @@ OSVTaggingArea.prototype.drawBoxFinish = function(event,ui) {
     var holder = this.html.find('.photo_holder');
     holder.append(ui.box);
     
-    var area = ui.box.css('left')+','+ui.box.css('top')+' ';
+    var left = parseInt(ui.box.css('left'));
+    var top = parseInt(ui.box.css('top'));
+    if( left < 0 )
+        left = 0;
+    if( top < 0 )
+        top = 0;
+    var area = left+','+top+' ';
     area += ui.box.width()+'x'+ui.box.height();
     area = area.replace(/px/g, '');
     ui.box.remove();
@@ -88,10 +96,12 @@ OSVTaggingArea.prototype.show = function( photos, callback ) {
     // Call this so that we call the callback on any
     // existing photos
     this.hide();
-    this.photos = photos;
-    this.callback = photos
-    this.showPhoto(0);
-    this.html.show();
+    if( photos.length ) {
+        this.photos = photos;
+        this.callback = photos
+        this.showPhoto(0);
+        this.html.show();
+    }
 }
 
 OSVTaggingArea.prototype.clearTagForm = function() {
@@ -104,7 +114,7 @@ OSVTaggingArea.prototype.clearTagForm = function() {
 OSVTaggingArea.prototype.showPhoto = function( index ) {
     var p = this.photos[index];
     this.current_photo = index;
-    this.photo_html.attr('src',p.url('large'));
+    this.photo_html.attr('src',p.url('large')+"?"+Math.random());
     this.tags_tbody.empty();
     this.clearTagForm();
     this.html.find('.photo_holder .mask').remove();
