@@ -14,9 +14,9 @@ class HomepageController < ApplicationController
     end
     puts "counts_hash=#{@counts_hash}"
     @photos = {}
-    @show_statuses = [ 'unavailable', 'moderation', 'available' ]
+    @show_statuses = [ 'unavailable' ]
     @show_statuses.each do |ps|
-      @photos[ps] = Photo.find( :all, :conditions => { :user_id => @current_user.id, :status => ps }, :order => 'created_at DESC', :limit => 10 )
+      @photos[ps] = Photo.find( :all, :conditions => { :user_id => @current_user.id, :status => ps }, :order => 'created_at DESC', :limit => 40 )
     end
   end
 
