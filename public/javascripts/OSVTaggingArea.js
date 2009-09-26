@@ -117,8 +117,11 @@ OSVTaggingArea.prototype.changePhoto = function( change ) {
     var new_index = this.current_photo + change;
     if( new_index < 0 )
         new_index = 0;
-    if( new_index >= this.photos.length )
-        new_index = this.photos.length - 1;
+    if( new_index >= this.photos.length ) {
+        //new_index = this.photos.length - 1;
+        this.hide();
+        return;
+    }
     this.showPhoto(new_index);
 }
 
