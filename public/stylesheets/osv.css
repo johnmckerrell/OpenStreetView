@@ -262,7 +262,7 @@ ul.licenses h3 {
     float: right;
 }
 
-.tagging_area .close {
+.tagging_area .window-actions{
     clear: both;
     text-align: center;
 }

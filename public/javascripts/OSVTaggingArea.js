@@ -13,7 +13,9 @@ function OSVTaggingArea(el, mask_tags) {
     }
 
     var me = this;
-    this.html.find('.close a').click(function(){me.hide()});
+    this.html.find('.window-actions .close').click(function(){me.hide()});
+    this.html.find('.window-actions .next').click(function(){me.changePhoto(1)});
+    this.html.find('.window-actions .previous').click(function(){me.changePhoto(-1)});
     this.html.find('.tag_area a').click(function() {
         me.html.find('.tag_area input').attr('value','');
     });
@@ -109,6 +111,15 @@ OSVTaggingArea.prototype.clearTagForm = function() {
     if( this.mask_tags ) {
         this.html.find('.tag_key input').attr({'value':'mask'})
     }
+}
+
+OSVTaggingArea.prototype.changePhoto = function( change ) {
+    var new_index = this.current_photo + change;
+    if( new_index < 0 )
+        new_index = 0;
+    if( new_index >= this.photos.length )
+        new_index = this.photos.length - 1;
+    this.showPhoto(new_index);
 }
 
 OSVTaggingArea.prototype.showPhoto = function( index ) {
