@@ -1,6 +1,9 @@
 function OSVTaggingArea(el, mask_tags) {
     this.html = $(el);
     this.photo_html = this.html.find('.photo');
+    this.photo_html.bind('load',function() {
+        this.style.visibility = 'visible';
+    });
     this.tags_tbody = this.html.find('tbody');
     this.mask_tags = mask_tags;
     this.photos = null;
@@ -45,7 +48,7 @@ OSVTaggingArea.prototype.saveTag = function() {
             this.createTagHTML(tag,true,
                 this.tags_tbody.get(0).childNodes.length ) );
     } else {
-        this.hide();
+        this.changePhoto(1);
     }
 }
 
@@ -128,6 +131,7 @@ OSVTaggingArea.prototype.changePhoto = function( change ) {
 OSVTaggingArea.prototype.showPhoto = function( index ) {
     var p = this.photos[index];
     this.current_photo = index;
+    this.photo_html.css('visibility','visible');
     this.photo_html.attr('src',p.url('large')+"?"+Math.random());
     this.tags_tbody.empty();
     this.clearTagForm();
