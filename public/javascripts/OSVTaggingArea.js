@@ -106,6 +106,11 @@ OSVTaggingArea.prototype.show = function( photos, callback ) {
         this.callback = photos
         this.showPhoto(0);
         this.html.show();
+        if( this.mask_tags ) {
+            this.html.find('.tag_value input').focus();
+        } else {
+            this.html.find('.tag_key input').focus();
+        }
     }
 }
 
