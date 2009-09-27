@@ -136,7 +136,7 @@ OSVTaggingArea.prototype.changePhoto = function( change ) {
 OSVTaggingArea.prototype.showPhoto = function( index ) {
     var p = this.photos[index];
     this.current_photo = index;
-    this.photo_html.css('visibility','visible');
+    this.photo_html.css('visibility','hidden');
     this.photo_html.attr('src',p.url('large')+"?"+Math.random());
     this.tags_tbody.empty();
     this.clearTagForm();
