@@ -22,6 +22,10 @@ body {
     width: 100%;
 }
 
+.hidden {
+    display: none;
+}
+
 #message h3 {
     padding: 5px;
 }

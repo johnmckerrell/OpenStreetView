@@ -56,10 +56,10 @@
     <%= link_to "upload", :controller => 'upload' %>
     -
     <%- count = Photo.moderation_count(current_user) -%>
-    <%- if count > 0 -%>
-    <%= link_to pluralize(count, 'photo')+" need"+(count > 0 ? 's' : '')+" moderation", :controller => 'moderate' %>
+    <span id="moderation_count" class="<%=count == 0 ? 'hidden' : '' %>">
+      <%= link_to pluralize(count, 'photo')+" need"+(count == 1 ? 's' : '')+" moderation", { :controller => 'moderate' } %>
     -
-    <%- end -%>
+    </span>
     <%=link_to "logout", :controller => 'sessions', :action => 'destroy' %>
     <% else %>
     <%=link_to "log in", :controller => 'sessions', :action => 'new' %>

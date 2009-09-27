@@ -2,6 +2,11 @@ class Api::PhotosController < Api::ApplicationController
   before_filter :login_required, :except => [ :locate ]
   around_filter :catch_errors
 
+  def moderation_count
+    @result = { :count => Photo.moderation_count(current_user) }
+    render_json
+  end
+
   def request_more
     if request.post?
       existing_count = Moderator.count(

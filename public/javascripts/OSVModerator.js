@@ -58,6 +58,29 @@ OSVModerator.prototype.changed = function() {
     return false;
 }
 
+OSVModerator.prototype.requestModerationCount = function() {
+    if( this.requesting_count )
+        return;
+    this.requesting_count = true;
+    var me = this;
+    $.get( '/api/photos/moderation_count', null, function( json ) { me.requestModerationCountCallback(json) }, 'json' );
+}
+
+OSVModerator.prototype.requestModerationCountCallback = function(json) {
+    if( json && typeof(json['count']) == 'number' ) {
+        if( json['count'] == 0 ) {
+            $('#moderation_count').addClass('hidden');
+        } else {
+            $('#moderation_count').removeClass('hidden');
+            $('#moderation_count a').text(json['count'] + ' photo' +
+                ( json['count'] == 1 ? ' needs' : 's need' ) +
+                ' moderation' );
+               
+        }
+        this.requesting_count = false;
+    }
+}
+
 OSVModerator.prototype.requestMoreImages = function() {
     if( this.ajax_activity )
         return;
@@ -68,6 +91,7 @@ OSVModerator.prototype.requestMoreImages = function() {
 
 OSVModerator.prototype.requestMoreImagesCallback = function(json) {
     this.ajax_activity = false;
+    this.requestModerationCount();
     if( json && json instanceof Array ) {
         this.addImages(json);
         if( json.length == 0 ) {
