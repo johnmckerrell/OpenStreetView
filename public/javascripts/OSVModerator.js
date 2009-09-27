@@ -70,6 +70,9 @@ OSVModerator.prototype.requestMoreImagesCallback = function(json) {
     this.ajax_activity = false;
     if( json && json instanceof Array ) {
         this.addImages(json);
+        if( json.length == 0 ) {
+            alert('There are no more images to moderate!');
+        }
     }
 }
 
@@ -97,6 +100,9 @@ OSVModerator.prototype.requestImagesCallback = function(json) {
             this.photos.shift().destroy();
         }
         this.addImages(json);
+        if(json.length == 0 ) {
+            this.requestMoreImages();
+        }
     }
 }
 
@@ -122,7 +128,10 @@ OSVModerator.prototype.remove = function(p) {
     }
     this.photos = np;
     p.destroy();
-    this.addImages([]);
+    //this.addImages([]);
+    if(this.photos.length == 0) {
+        this.requestMoreImages();
+    }
 }
 
 OSVModerator.prototype.setAll = function(val) {
