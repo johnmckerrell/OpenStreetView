@@ -44,6 +44,7 @@ class FtpLogin < ActiveRecord::Base
       count += self.process_batch( n, a )
       begin
         Dir.delete( self.path+n )
+      rescue Error
         # Might raise SystemCallError if directory isn't empty
         # but we just ignore that, let the user delete it
         # themselves in that case.
