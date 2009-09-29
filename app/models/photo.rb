@@ -175,7 +175,7 @@ class Photo < ActiveRecord::Base
 #  def to_edit_json( *a )
 #    {
 #      :id => id,
-#      :orientation => self.orientation,
+#      :direction => self.direction,
 #      :tilt => self.tilt,
 #      :lat => self.lat,
 #      :lon => self.lon,
@@ -192,7 +192,6 @@ class Photo < ActiveRecord::Base
   def to_json( *a )
     hash = {
       :id => id,
-      :orientation => self.orientation,
       :tilt => self.tilt,
       :status => status,
       :taken_at => self.taken_at,
@@ -208,6 +207,9 @@ class Photo < ActiveRecord::Base
     if lat and lon
       hash[:lat] = lat
       hash[:lon] = lon
+    end
+    if direction
+      hash[:direction] = direction
     end
     if orientation
       hash[:orientation] = orientation
@@ -240,15 +242,30 @@ class Photo < ActiveRecord::Base
     if self.status != 'pending' and self.status != 'processing'
       return
     end
-    require "fileutils"
     begin
-      i = EXIFR::JPEG.new('private/pending/'+filename)
+      self.update_properties('private/pending/'+filename)
     rescue Exception
-      self.status = 'error'
-      self.save!
+      if status == 'processing' or self.status == 'pending'
+        self.status = 'error'
+        self.save!
+      end
       return
     end
+    # Move the base file to where it will live
+    FileUtils.move( sys_filename("pending", filename), sys_filename("originals", filename) )
+    # Generate images from the original
+    self.update_mask
+    self.status = 'processing'
+    update_status( 'unavailable')
+  end
+
+  def update_properties(full_filename)
+    require "fileutils"
+    i = EXIFR::JPEG.new(full_filename)
+    self.filesize = File.size(full_filename)
     if i.exif?
+      self.original_width = i.width
+      self.original_height = i.height
       if i.date_time_digitized
         self.exif_taken_at = i.date_time_digitized
         self.taken_at = i.date_time_digitized
@@ -266,22 +283,16 @@ class Photo < ActiveRecord::Base
       end
       # FIXME - magnetic north or true north?
       if i.gps_img_direction
-        self.orientation = i.gps_img_direction.to_f
-        self.exif_orientation = i.gps_img_direction.to_f
-        self.exif_orientation_source = 'gps_img_direction'
+        self.direction = i.gps_img_direction.to_f
+        self.exif_direction = i.gps_img_direction.to_f
+        self.exif_direction_source = 'gps_img_direction'
       elsif i.gps_dest_bearing
-        self.orientation = i.gps_dest_bearing.to_f
-        self.exif_orientation = i.gps_dest_bearing.to_f
-        self.exif_orientation_source = 'gps_dest_bearing'
+        self.direction = i.gps_dest_bearing.to_f
+        self.exif_direction = i.gps_dest_bearing.to_f
+        self.exif_direction_source = 'gps_dest_bearing'
       end
       # FIXME - Add tilt from exif
     end
-    # Move the base file to where it will live
-    FileUtils.move( sys_filename("pending", filename), sys_filename("originals", filename) )
-    # Generate images from the original
-    self.update_mask
-    self.status = 'processing'
-    update_status( 'unavailable')
   end
 
   def update_status( new_status )
