@@ -145,7 +145,7 @@ class Photo < ActiveRecord::Base
     case status
     when 'moderation'
       @result = Photo.find( :all,
-        :conditions => [ "moderators.user_id = ? AND moderators.status <> 'safe'", user.id ],
+        :conditions => [ "moderators.user_id = ? AND moderators.status = 'pending'", user.id ],
         :include => [ :moderators, :tags, :composite_metadatas ],
         #:joins => [ :moderators ],
         :order => 'moderators.created_at DESC',

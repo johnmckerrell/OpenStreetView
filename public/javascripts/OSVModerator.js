@@ -37,12 +37,12 @@ OSVModerator.prototype.maskCallback = function( success ) {
 OSVModerator.prototype.save = function() {
     var made_safe = false;
     for( var i = 0, l = this.photos.length; i < l; ++i ) {
-        if( this.photos[i].changed() && this.photos[i].safeness() == 'safe' ) {
+        if( this.photos[i].changed() && this.photos[i].safeness() != 'pending' ) {
             made_safe = true;
             break
         }
     }
-    if( made_safe && ! confirm( "Are you sure you want to mark these images as safe? You will not be able to undo this action." ) ) {
+    if( made_safe && ! confirm( "Are you sure about your moderations? You will not be able to undo this action." ) ) {
         return;
     }
     for( var i = 0, l = this.photos.length; i < l; ++i ) {

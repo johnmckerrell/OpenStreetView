@@ -82,7 +82,7 @@ OSVPhoto.prototype.saveLoop = function(saved,args) {
         this.saving = false;
         this.change_data = {};
         this.data = data;
-        if( this.safeness() == 'safe' ) {
+        if( this.safeness() != 'pending' ) {
             this.moderator.remove(this);
         } else {
             this.safeness(this.safeness());
