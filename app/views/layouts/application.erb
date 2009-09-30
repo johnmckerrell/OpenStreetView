@@ -55,11 +55,23 @@
     -
     <%= link_to "upload", :controller => 'upload' %>
     -
-    <%- count = Photo.moderation_count(current_user) -%>
-    <span id="moderation_count" class="<%=count == 0 ? 'hidden' : '' %>">
-      <%= link_to pluralize(count, 'photo')+" need"+(count == 1 ? 's' : '')+" moderation", { :controller => 'moderate' } %>
+    <%
+      unavailable_count = Photo.count_for_status( 'unavailable', current_user )
+      if unavailable_count > 0
+    %>
+    <span id="unavailable_count">
+      <%=link_to pluralize(unavailable_count, 'photo')+" need"+(unavailable_count == 1 ? 's' : '')+" pushing to moderation", { :controller => 'homepage' } %>
     -
     </span>
+    <%
+      else
+    %>
+    <%- moderation_count = Photo.moderation_count(current_user) -%>
+    <span id="moderation_count" class="<%=moderation_count == 0 ? 'hidden' : '' %>">
+      <%= link_to pluralize(moderation_count, 'photo')+" need"+(moderation_count == 1 ? 's' : '')+" moderation", { :controller => 'moderate' } %>
+    -
+    </span>
+    <% end %>
     <%=link_to "logout", :controller => 'sessions', :action => 'destroy' %>
     <% else %>
     <%=link_to "log in", :controller => 'sessions', :action => 'new' %>

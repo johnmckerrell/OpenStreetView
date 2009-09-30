@@ -141,6 +141,14 @@ class Photo < ActiveRecord::Base
       :limit => 100 )
   end
 
+  def self.count_for_status( status, user = nil )
+    conditions = { :status => status }
+    if user
+      conditions[:user_id] = user.id
+    end
+    Photo.count( :conditions => conditions )
+  end
+
   def self.moderation_count( user = nil )
     photos_count = Photo.count(
       :conditions => [ "status = 'moderation'" ] )
