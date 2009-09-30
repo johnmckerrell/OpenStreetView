@@ -50,7 +50,7 @@ class Photo < ActiveRecord::Base
     # Start by getting the count of moderators that have marked the
     # photo as safe and unsafe
     approval_count = self.moderators.count(:conditions => {:status => 'safe'})
-    disappproval_count = self.moderators.count(:conditions => {:status => 'unsafe'})
+    disapproval_count = self.moderators.count(:conditions => {:status => 'unsafe'})
     # set this on the object now as it's a valid value
     self.approval_count = approval_count
 
