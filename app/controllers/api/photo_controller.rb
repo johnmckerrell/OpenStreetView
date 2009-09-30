@@ -133,9 +133,7 @@ before_filter :load_photo
       if moderator.status != 'safe' and json['status'] and json['status'] != ''
         moderator.status = json['status']
         moderator.save!
-        if moderator.status == 'safe'
-          @photo.update_safeness
-        end
+        @photo.update_safeness
       end
       load_photo
       @result = @photo

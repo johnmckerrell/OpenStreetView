@@ -45,12 +45,34 @@ class Photo < ActiveRecord::Base
     end
   end
 
+  # potentially pushes the image live
   def update_safeness
-    # potentially pushes the image live
+    # Start by getting the count of moderators that have marked the
+    # photo as safe and unsafe
     approval_count = self.moderators.count(:conditions => {:status => 'safe'})
+    disappproval_count = self.moderators.count(:conditions => {:status => 'unsafe'})
+    # set this on the object now as it's a valid value
     self.approval_count = approval_count
-    if self.status != 'available' and self.approval_count >= self.approval_needed
+
+    # get the moderator entry for the owner, if there is one
+    # (owner doesn't always moderate their own photos)
+    cm = @current_moderator
+    set_moderator(self.user)
+    owner_moderator = @current_moderator
+    @current_moderator = cm
+
+    puts "owner moderator is #{owner_moderator.inspect}"
+    # If the owner has moderated their own image and marked it unsafe
+    # then delete straight away
+    if owner_moderator and owner_moderator.status = 'unsafe'
+      self.update_status( 'deleted' )
+    # If too many people have marked the image as unsafe then delete it
+    elsif disapproval_count >= MIN_APPROVALS
+      self.update_status( 'deleted' )
+    # If enough people have marked the image as safe then make it available
+    elsif self.status != 'available' and self.approval_count >= self.approval_needed
       self.update_status( 'available' )
+    # Otherwise just save the approval count and do nothing else
     else
       puts "Should be saving the approval count here: #{self.approval_count}"
       self.save!
