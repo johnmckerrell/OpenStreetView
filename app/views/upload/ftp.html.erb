@@ -25,7 +25,7 @@
         <td><%=@fl.password%></td>
       </tr>
     </table>
-    <p>Find files that you've uploaded in the list below. First level directories will be uploaded as batches.</p>
+    <p><b>Once you have uploaded files you will need to find them in the list below and mark them for processing.</b> First level directories will be uploaded as batches.</p>
     <% form_tag( { :controller => 'upload', :action => 'ftp_process' } ) do %>
     <ul class="ftpupload">
     <%
