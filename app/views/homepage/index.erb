@@ -45,7 +45,10 @@
             <% end %>
         </ul>
         <% if ps == 'unavailable' %>
-            <%= submit_tag "Push to moderation" %>
+            <div class="photo-actions">
+              <button name="new_status" value="moderation" type="submit">Push to moderation</button>
+              <button name="new_status" value="deleted" type="submit">Delete</button>
+            </div>
         <% end %>
     <% end %>
 </div>

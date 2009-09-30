@@ -336,3 +336,13 @@ ul.photo_list li.status-unsafe {
     background: #FCC;
     display: block;
 }
+
+/**
+ * For the "homepage"
+ */
+
+.photo-actions {
+    clear: both;
+    text-align: center;
+    margin-bottom: 10px;
+}

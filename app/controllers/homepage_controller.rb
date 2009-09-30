@@ -21,25 +21,15 @@ class HomepageController < ApplicationController
   end
 
   def modify_files
-    if params[:status] == 'unavailable'
-      if params[:owner_moderate] == 'Yes' or params[:owner_moderate] == 'No'
-        params[:photos].each do |p|
-          photo = Photo.find_by_filename(p)
-          if photo and photo.user_id == @current_user.id
-            if params[:owner_moderate] == 'Yes'
-              photo.add_moderator( @current_user )
-            end
-            photo.update_status('moderation')
-          end
+    if params[:status] == 'unavailable' and ( params[:new_status] == 'deleted' or params[:new_status] == 'moderation' )
+      params[:photos].each do |p|
+        photo = Photo.find_by_filename(p)
+        if photo and photo.user_id == @current_user.id
+          photo.update_status(params[:new_status])
         end
-        if params[:owner_moderate] == 'Yes'
-          redirect_to :controller => 'moderate'
-        else
-          redirect_to :controller => 'homepage'
-        end
-        return
       end
     end
+    redirect_to :controller => 'homepage'
   end
 
 end
