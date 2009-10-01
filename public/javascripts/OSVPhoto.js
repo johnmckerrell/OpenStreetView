@@ -31,7 +31,15 @@ OSVPhoto.prototype.saveLoop = function(saved,args) {
         if( status == 'success' && data && ! data.error ) {
             this.change_data[saved] = null;
         } else {
-            OSV.reportError('There was an error saving your changes');
+            var xhr = data;
+            if( xhr.responseText ) {
+                data = $.secureEvalJSON(xhr.responseText);
+            }
+            if( data && data.message ) {
+                OSV.reportError(data.message);
+            } else {
+                OSV.reportError('There was an error saving your changes');
+            }
             return;
         }
     }
