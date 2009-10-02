@@ -9,8 +9,13 @@ class Api::PhotosController < Api::ApplicationController
 
   def request_more
     if request.post?
+      # FIXME Only try to add photos that don't already have this user
+      # as a moderator by selecting the photo IDs in this stage and
+      # then selecting the photos not in the selection of IDs in the next
+      # stage.
       existing_count = Moderator.count(
-        :conditions => [ "user_id = ? AND status = 'pending'", current_user.id ] )
+        :conditions => [ "moderators.user_id = ? AND moderators.status = 'pending' AND photos.status = 'moderation'", current_user.id ],
+        :include => [ :photo ] )
       if existing_count < MAX_USER_MODERATORS
         request_count = MAX_USER_MODERATORS - existing_count
         photos = Photo.find( :all,
