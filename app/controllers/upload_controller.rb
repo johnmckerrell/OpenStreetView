@@ -58,6 +58,15 @@ class UploadController < ApplicationController
       end
       @dir_contents = Dir.entries( @path )
       @dir_contents = @dir_contents.reject { |d| d == '..' or d == '.' }
+      @dir_contents_dirs = []
+      @dir_contents_files = []
+      @dir_contents.each do |d|
+        if File.directory?(@path+'/'+d)
+          @dir_contents_dirs.push(d)
+        else
+          @dir_contents_files.push(d)
+        end
+      end
     else
       @dir_contents = nil
     end

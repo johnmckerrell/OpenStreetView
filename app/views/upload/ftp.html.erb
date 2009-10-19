@@ -29,7 +29,7 @@
     <% form_tag( { :controller => 'upload', :action => 'ftp_process' } ) do %>
     <ul class="ftpupload">
     <%
-        @dir_contents.each do |d|
+        @dir_contents_dirs.each do |d|
             %>
         <li>
             <%=check_box_tag "process[]", d %>
@@ -52,6 +52,14 @@
             <% else %>
             <%= link_to h(d), :subdir => d %>
             <% end %>
+        </li>
+            <%
+        end
+        @dir_contents_files.each do |d|
+            %>
+        <li>
+            <%=check_box_tag "process[]", d %>
+            <%= h(d) %>
         </li>
             <%
         end
