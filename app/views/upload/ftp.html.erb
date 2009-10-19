@@ -58,8 +58,10 @@
         @dir_contents_files.each do |d|
             %>
         <li>
-            <%=check_box_tag "process[]", d %>
-            <%= h(d) %>
+            <label>
+              <%=check_box_tag "process[]", d %>
+              <%= h(d) %>
+            </label>
         </li>
             <%
         end
