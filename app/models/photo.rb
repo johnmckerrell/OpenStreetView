@@ -74,7 +74,7 @@ class Photo < ActiveRecord::Base
       self.update_status( 'available' )
     # Otherwise just save the approval count and do nothing else
     else
-      if self.status != 'moderation'
+      if owner_moderator and self.status != 'moderation'
         self.status = 'moderation'
       end
       puts "Should be saving the approval count here: #{self.approval_count}"
