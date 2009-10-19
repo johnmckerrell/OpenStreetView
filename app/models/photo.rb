@@ -64,7 +64,7 @@ class Photo < ActiveRecord::Base
     puts "owner moderator is #{owner_moderator.inspect}"
     # If the owner has moderated their own image and marked it unsafe
     # then delete straight away
-    if owner_moderator and owner_moderator.status = 'unsafe'
+    if owner_moderator and owner_moderator.status == 'unsafe'
       self.update_status( 'deleted' )
     # If too many people have marked the image as unsafe then delete it
     elsif disapproval_count >= MIN_APPROVALS
