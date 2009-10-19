@@ -77,7 +77,7 @@ class Photo < ActiveRecord::Base
       # This largely here to fix a bug where any photo moderated by its owner 
       # got deleted. So if a photo was moderated by its owner and has
       # deleted status then we update its status to moderation.
-      if owner_moderator and self.status 'deleted'
+      if owner_moderator and self.status == 'deleted'
         self.update_status( 'moderation' )
       else
         puts "Should be saving the approval count here: #{self.approval_count}"
