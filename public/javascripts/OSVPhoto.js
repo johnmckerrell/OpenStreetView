@@ -1,7 +1,7 @@
 function OSVPhoto(data, moderator) {
     this.data = data;
     this.moderator = moderator;
-    this._selected = true;
+    this._selected = false;
     this.change_data = {};
     this.saving = false;
 }
