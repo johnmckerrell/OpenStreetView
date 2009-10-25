@@ -34,6 +34,10 @@ OSVModerator.prototype.maskSections = function() {
 OSVModerator.prototype.maskCallback = function( success ) {
 }
 
+OSVModerator.prototype.previewSize = function() {
+    return $('.previewsize:checked').attr('value');
+}
+
 OSVModerator.prototype.save = function() {
     var made_safe = false;
     for( var i = 0, l = this.photos.length; i < l; ++i ) {

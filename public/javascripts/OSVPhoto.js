@@ -129,7 +129,7 @@ OSVPhoto.prototype.html = function() {
 
     var img = document.createElement('img');
     a.appendChild(img);
-    img.src = this.url('small');
+    img.src = this.url(this.moderator.previewSize());
 
     var span = document.createElement('span');
     a.appendChild(span);
