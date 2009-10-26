@@ -20,12 +20,15 @@ class Api::PhotosController < Api::ApplicationController
         request_count = MAX_USER_MODERATORS - existing_count
         photos = Photo.find( :all,
           :conditions => "status = 'moderation'",
-          :limit => request_count,
+          :limit => request_count * 3,
           :order => "RAND()" )
         added = []
         photos.each do |p|
           if p.add_moderator( current_user )
             added.push(p)
+          end
+          if request_count + added.length >= MAX_USER_MODERATORS
+            break
           end
         end
       end
