@@ -300,7 +300,7 @@ ul.selectable li.selected {
 /**
  * Moderation styles
  */
-ul#moderation_controls {
+ul.moderation_controls {
     clear: both;
 }
 
