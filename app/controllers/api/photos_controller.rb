@@ -27,7 +27,7 @@ class Api::PhotosController < Api::ApplicationController
           if p.add_moderator( current_user )
             added.push(p)
           end
-          if request_count + added.length >= MAX_USER_MODERATORS
+          if existing_count + added.length >= MAX_USER_MODERATORS
             break
           end
         end
