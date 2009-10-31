@@ -18,10 +18,10 @@ class Api::PhotosController < Api::ApplicationController
         :include => [ :photo ] )
       if existing_count < MAX_USER_MODERATORS
         request_count = MAX_USER_MODERATORS - existing_count
+        photo_ids = ActiveRecord::Base.connection.select_all( "SELECT DISTINCT p.id FROM photos p LEFT OUTER JOIN moderators m ON m.photo_id = p.id WHERE p.status = 'moderation' AND ( m.id IS NULL OR m.user_id <> #{@current_user.id}) ORDER BY RAND() LIMIT #{request_count}" )
+        photo_ids.map! { |p| p['id'] }
         photos = Photo.find( :all,
-          :conditions => "status = 'moderation'",
-          :limit => request_count * 3,
-          :order => "RAND()" )
+          :conditions => "id IN ( #{photo_ids.join(',')} )" )
         added = []
         photos.each do |p|
           if p.add_moderator( current_user )
