@@ -19,7 +19,7 @@ class Api::PhotosController < Api::ApplicationController
       if existing_count < MAX_USER_MODERATORS
         request_count = MAX_USER_MODERATORS - existing_count
         #photo_ids = ActiveRecord::Base.connection.select_all( "SELECT DISTINCT p.id FROM photos p LEFT OUTER JOIN moderators m ON m.photo_id = p.id WHERE p.status = 'moderation' AND ( m.id IS NULL OR m.user_id <> #{@current_user.id}) ORDER BY RAND() LIMIT #{request_count}" )
-        photo_ids = ActiveRecord::Base.connection.select_all( "SELECT DISTINCT p.id FROM photos p WHERE status = 'moderation' AND id NOT IN ( SELECT photo_id FROM moderators WHERE status = 'pending' AND user_id = #{current_user.id} ) ORDER BY RAND() LIMIT #{request_count}" )
+        photo_ids = ActiveRecord::Base.connection.select_all( "SELECT DISTINCT p.id FROM photos p WHERE status = 'moderation' AND id NOT IN ( SELECT photo_id FROM moderators WHERE user_id = #{current_user.id} ) ORDER BY RAND() LIMIT #{request_count}" )
         photo_ids.map! { |p| p['id'] }
         photos = Photo.find( :all,
           :conditions => "id IN ( #{photo_ids.join(',')} )" )
