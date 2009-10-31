@@ -86,7 +86,7 @@ h2 {
     clear: both;
 }
 
-.dynamic #footer {
+#homepage #footer {
     position: absolute;
     font-size: smaller;
     bottom: 10px;
