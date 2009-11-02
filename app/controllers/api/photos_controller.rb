@@ -24,6 +24,8 @@ class Api::PhotosController < Api::ApplicationController
         if photo_ids.length > 0
           photos = Photo.find( :all,
             :conditions => "id IN ( #{photo_ids.join(',')} )" )
+        else
+          photos = []
         end
         added = []
         photos.each do |p|
