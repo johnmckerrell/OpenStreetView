@@ -1,3 +1,4 @@
 .svn
 schema.rb
 *.sqlite*
+*~

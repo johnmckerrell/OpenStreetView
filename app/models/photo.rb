@@ -140,11 +140,14 @@ class Photo < ActiveRecord::Base
       return
     end
     bits.map! { |b| b.to_f }
+    lat_step = (bits[1] - bits[3]) / 400
+    lon_step = (bits[0] - bits[2]) / 300
     Photo.find( :all,
       :conditions => [
         "lat IS NOT NULL AND lon IS NOT NULL AND lat >= ? AND lat <= ? AND lon >= ? AND lon <= ? AND status = 'available'",
         bits[1], bits[3], bits[0], bits[2] ],
-      :order => 'created_at ASC',
+      :group => [ "floor(lat/", lat_step, "), floor(lon/", lon_step, ")" ],
+      :order => 'created_at DESC',
       :limit => 100 )
   end
 
