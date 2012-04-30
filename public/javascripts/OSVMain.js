@@ -42,8 +42,8 @@ var OSVMain = (function() {
                 p.feature  = new OpenLayers.Feature(markers, position.clone().transform(epsg4326, map.getProjectionObject()));
 	        p.feature.closeBox = true;
             	p.feature.popupClass = OpenLayers.Class(OpenLayers.Popup.FramedCloud, {'autoSize': true});
-		var popupContentHTML = "<img src="+p.url('medium')+'></img><p><a href="'+p.url('large')+'">Large size</a></p>';
-            	p.feature.data.popupContentHTML = popupContentHTML;
+		var popupContentHTML = "<img src="+p.url('medium')+'></img><p><a href="'+p.url('large')+'" target="_blank">Large size (in new tab)</a></p>';
+		p.feature.data.popupContentHTML = popupContentHTML;
             	p.feature.data.overflow = "auto";
 		p.feature.data.icon = icon;
 
@@ -62,7 +62,9 @@ var OSVMain = (function() {
                 OpenLayers.Event.stop(evt);
     		};
 		p.marker.events.register("mousedown", p.feature, markerClick);
+		p.marker.events.register("touchstart", p.feature, markerClick);
                 markers.addMarker(p.marker);
+
                 
             }
         }
