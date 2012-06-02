@@ -2,6 +2,7 @@ var epsg4326 = new OpenLayers.Projection("EPSG:4326");
 var OSVMain = (function() {
     var map, markers, map_move_timeout;
     var photos = {};
+    
     function mapChange() {
         if( map_move_timeout )
             clearTimeout(map_move_timeout);
@@ -37,9 +38,33 @@ var OSVMain = (function() {
             } else {
                 var position = new OpenLayers.LonLat(p.data.lon,p.data.lat);
                 var icon = new OpenLayers.Icon(p.url('square'), size, offset);
-                p.marker  = new OpenLayers.Marker(position.clone().transform(epsg4326, map.getProjectionObject()), icon);
+
+                p.feature  = new OpenLayers.Feature(markers, position.clone().transform(epsg4326, map.getProjectionObject()));
+	        p.feature.closeBox = true;
+            	p.feature.popupClass = OpenLayers.Class(OpenLayers.Popup.FramedCloud, {'autoSize': true});
+		var popupContentHTML = "<img src="+p.url('medium')+'></img><p><a href="'+p.url('large')+'" target="_blank">Large size (in new tab)</a></p>';
+		p.feature.data.popupContentHTML = popupContentHTML;
+            	p.feature.data.overflow = "auto";
+		p.feature.data.icon = icon;
+
                 new_photos[p.data.id] = p;
+		p.marker = p.feature.createMarker();
+    		p.marker.id = p.data.id;
+    		var markerClick = function (evt) {
+	                if (this.popup == null) {
+	                    this.popup = this.createPopup(true);
+	                    map.addPopup(this.popup);
+	                    this.popup.show();
+	                } else {
+	                    this.popup.toggle();
+                }
+                currentPopup = this.popup;
+                OpenLayers.Event.stop(evt);
+    		};
+		p.marker.events.register("mousedown", p.feature, markerClick);
+		p.marker.events.register("touchstart", p.feature, markerClick);
                 markers.addMarker(p.marker);
+
                 
             }
         }
