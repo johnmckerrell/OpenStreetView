@@ -42,7 +42,7 @@ Rails::Initializer.run do |config|
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
   config.active_record.observers = :user_observer
-  config.gem 'rubyist-aasm', :lib => 'aasm', :source => 'http://gems.github.com'
+  config.gem 'aasm'
   config.gem 'mini_magick'
   config.gem 'exifr'
   config.gem 'json'
