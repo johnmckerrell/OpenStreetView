@@ -1,7 +1,7 @@
 # Be sure to restart your server when you modify this file
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.3.15' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.3.17' unless defined? RAILS_GEM_VERSION
 
 # Specifies the server hostname
 SERVER_URL = ENV['OSV_SERVER_URL'] || 'www.openstreetview.org'
@@ -49,14 +49,14 @@ Rails::Initializer.run do |config|
 end
 
 MIN_APPROVALS=3
-MAX_USER_MODERATORS=10
+MAX_USER_MODERATORS=20
 
 #require 'mini_magick'
 #require 'exifr'
 
 PHOTO_STATES = [ 'pending', 'processing', 'unavailable', 'moderation', 'available' ]
 MODERATION_STATES = [ 'pending', 'safe', 'unsafe' ]
-API_PHOTO_PAGE_SIZE = 10
+API_PHOTO_PAGE_SIZE = 20
 PHOTO_SIZES = {
   'square' => 75,
   'thumb' => 100,
