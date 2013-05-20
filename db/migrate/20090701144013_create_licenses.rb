@@ -29,7 +29,7 @@ class CreateLicenses < ActiveRecord::Migration
     
     one = License.new
     one.name = 'CC-BY-NC'
-    one.description = 'This license lets others remix, tweak, and build upon your work non-commercially, and although their new works must also acknowledge you and be non-commercial, they don’t have to license their derivative works on the same terms.'
+    one.description = 'This license lets others remix, tweak, and build upon your work non-commercially, and although their new works must also acknowledge you and be non-commercial, they don\'t have to license their derivative works on the same terms.'
     one.url = 'http://creativecommons.org/licenses/by-nc/3.0'
     one.save
 
