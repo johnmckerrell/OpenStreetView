@@ -350,9 +350,9 @@ class Photo < ActiveRecord::Base
 
   def url(type)
     if self.status == 'available'
-      "http://#{SERVER_URL}/"+sys_filename(self.status,filename,type).gsub(/^public\//, '')
+      "/"+sys_filename(self.status,filename,type).gsub(/^public\//, '')
     else
-      "http://#{SERVER_URL}/"+sys_filename('processed',filename,type)
+      "/"+sys_filename('processed',filename,type)
     end
   end
 
